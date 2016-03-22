@@ -24,7 +24,7 @@ namespace DateTimeMath {
         Every = January | February | March | April | May | June | July | August | September | October | November | December
     }
 
-    public static class MonthsOfYearExtensions {
+    public static class MonthsOfTheYearExtensions {
         private static readonly MonthsOfYear[] Order = new MonthsOfYear[] {
                 MonthsOfYear.January, MonthsOfYear.February, MonthsOfYear.March, MonthsOfYear.April
                 , MonthsOfYear.May, MonthsOfYear.June, MonthsOfYear.July, MonthsOfYear.August

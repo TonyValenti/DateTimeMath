@@ -55,19 +55,25 @@ namespace DateTimeMath {
 
             return ret;
         }
-        public static DayOfWeek ToDayOfWeek(this DaysOfWeek DaysOfWeek) {
-            var V = DaysOfWeek.GetValues().First();
+        public static DayOfWeek ToDayOfWeek(this DaysOfWeek DaysOfTheWeek) {
+            var V = DaysOfTheWeek.GetValues().First();
             var Index = Array.IndexOf(Order, V);
 
             return DayOfWeekOrder[Index];
 
         }
 
+        public static DaysOfWeek ToDaysOfWeek(this DayOfWeek DayOfWeek) {
+            var Index = Array.IndexOf(DayOfWeekOrder, DayOfWeek);
+            return Order[Index];
+        }
+        
 
-        public static bool Matches(this DaysOfWeek DaysOfWeek, DateTime Date) {
+
+        public static bool Matches(this DaysOfWeek DaysOfTheWeek, DateTime Date) {
             var ret = false;
             for (int i = 0; i < Order.Length; i++) {
-                if(DaysOfWeek.HasFlag(Order[i]) && (int)Date.DayOfWeek == i) {
+                if(DaysOfTheWeek.HasFlag(Order[i]) && (int)Date.DayOfWeek == i) {
                     ret = true;
                     break;
                 }

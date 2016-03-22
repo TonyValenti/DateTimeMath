@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{35DE33BF-48F3-4D1C-B4EF-1572C66C033F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DateTimeMath</RootNamespace>
     <AssemblyName>DateTimeMath</AssemblyName>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,8 +46,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeFinder\Adjustors\ICompositeAdjuster.cs" />
+    <Compile Include="DateTimeFinder\Modifier\AtTimesModifier.cs" />
+    <Compile Include="DateTimeFinder\Conditions\AndCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\CompositeCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\DaysOfTheMonthCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\DaysOfTheWeekCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\YearEndsInCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\ICompositeCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\Easter.cs" />
+    <Compile Include="DateTimeFinder\Conditions\EvenYearsCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\LastDayOfTheMonthCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\MonthsOfTheYearCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\OddYearsCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\OrCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\ValentinesDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\SuperBowlSunday.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\SaintPatricksDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\MothersDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\FathersDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\MemorialDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\LaborDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\Halloween.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\Thanksgiving.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\ChristmasEve.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\PresidentsDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\ChristmasDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\NewYearsEve.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\NewYearsDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\Definitions\MartinLutherKingDay.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\SpecialDaysCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecificDateCondition.cs" />
+    <Compile Include="DateTimeFinder\Conditions\WeeksOfTheMonthCondition.cs" />
     <Compile Include="DateTimeFinder\DateTimeFinder.cs" />
     <Compile Include="DateTimeFinder\DateTimeFinderWithers.cs" />
+    <Compile Include="DateTimeFinder\Conditions\SpecialDays\SpecialDaysEnum.cs" />
+    <Compile Include="DateTimeFinder\Modifier\DateTimeModifier.cs" />
+    <Compile Include="DateTimeFinder\Modifier\ICompositeModifier.cs" />
+    <Compile Include="DateTimeFinder\Selectors\ICompositeSelector.cs" />
+    <Compile Include="DateTimeFinder\Selectors\SkipSelector.cs" />
+    <Compile Include="DateTimeFinder\Selectors\AlternatingPatternSelector.cs" />
+    <Compile Include="DateTimeFinder\Selectors\LastSelector.cs" />
+    <Compile Include="DateTimeFinder\Selectors\BlackoutSelector.cs" />
+    <Compile Include="DateTimeFinder\Selectors\DateTimeSelector.cs" />
+    <Compile Include="DateTimeFinder\Selectors\FirstSelector.cs" />
     <Compile Include="DateTimeRanges\DateTimeRange.cs" />
     <Compile Include="DateTimeRanges\DateTimeRangeFormula.cs" />
     <Compile Include="DaysOfWeek.cs" />
@@ -53,8 +98,8 @@
     <Compile Include="MonthsOfYear.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DateTime\PositionalDateTimeAdjuster.cs" />
-    <Compile Include="DateTimeFinder\TimeConditions.cs" />
-    <Compile Include="DateTimeFinder\TimeFilter.cs" />
+    <Compile Include="DateTimeFinder\Conditions\DateTimeConditions.cs" />
+    <Compile Include="DateTimeFinder\Adjustors\DateTimeAdjuster.cs" />
     <Compile Include="DateTime\DateTimeFormula.cs" />
     <Compile Include="WeeksOfMonth.cs" />
   </ItemGroup>

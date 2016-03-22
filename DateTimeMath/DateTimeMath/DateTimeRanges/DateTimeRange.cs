@@ -65,6 +65,11 @@ namespace DateTimeMath
             this.EndDate = EndDate;
         }
 
+        public DateTimeRange(DateTime StartDate, TimeSpan Offset) {
+            this.StartDate = StartDate;
+            this.EndDate = StartDate + Offset;
+        }
+
         public DateTimeRange(DateTimeRange Source) : this(Source.StartDate, Source.EndDate)
         {
 

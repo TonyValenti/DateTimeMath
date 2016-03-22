@@ -21,7 +21,7 @@ namespace DateTimeMath
 
 
 
-    public static class WeeksOfMonthExtensions {
+    public static class WeeksOfTheMonthExtensions {
         public static readonly WeeksOfMonth[] Order = new WeeksOfMonth[] {
             WeeksOfMonth.First,
             WeeksOfMonth.Second,
