@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DateTimeMath.Search {
     public abstract class DateTimeAdjuster {
-        public abstract IEnumerable<DateTime?> Adjust(IEnumerable<DateTime?> Source);
+        public abstract IEnumerable<DateTime?> Adjust(DateTimeFormula Source, DateTime MinDate, DateTime MaxDate, DateTime StartDate);
     }
     
 

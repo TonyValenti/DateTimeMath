@@ -10,7 +10,7 @@ namespace DateTimeMath.Search {
 
 
         public MonthsOfTheYearCondition() {
-            this.MonthsOfTheYear = MonthsOfYear.Every;
+            this.MonthsOfTheYear = MonthsOfYear.None;
         }
 
         public MonthsOfTheYearCondition(MonthsOfYear MonthsOfTheYear) {

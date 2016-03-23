@@ -9,7 +9,7 @@ namespace DateTimeMath.Search {
         List<DateTimeAdjuster> Adjustments { get; }
     }
 
-      public static class IContainsAdjustmentsExtensions {
+      public static partial class IContainsAdjustmentsExtensions {
 
         public static T Adjustments<T>(this IContainsAdjustments This) where T : DateTimeAdjuster, new() {
             var ret = default(T);

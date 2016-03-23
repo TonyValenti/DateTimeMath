@@ -10,7 +10,7 @@ namespace DateTimeMath.Search {
         public DaysOfWeek DaysOfTheWeek { get; set; }
 
         public DaysOfTheWeekCondition() {
-            this.DaysOfTheWeek = DaysOfWeek.Every;
+            this.DaysOfTheWeek = DaysOfWeek.None;
         }
 
         public DaysOfTheWeekCondition(DaysOfWeek DaysOfTheWeek) {
@@ -22,7 +22,7 @@ namespace DateTimeMath.Search {
         }
 
         public void Add(DaysOfWeek DaysOfTheWeek) {
-            this.DaysOfTheWeek |= this.DaysOfTheWeek;
+            this.DaysOfTheWeek |= DaysOfTheWeek;
         }
 
         public void Add(IEnumerable<DaysOfWeek> DaysOfTheWeek) {

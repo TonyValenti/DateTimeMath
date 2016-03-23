@@ -7,24 +7,23 @@ using System.Threading.Tasks;
 namespace DateTimeMath.Search.SpecialDays {
     [Flags]
     public enum SpecialDaysEnum {
-        None = 0,
-        MartinLutherKingDay,
-        SuperBowlSunday,
-        ValentinesDay,
-        PresidentsDay,
-        SaintPatricksDay,
-        Easter,
-        MothersDay,
-        FathersDay,
-        MemorialDay,
-        LaborDay,
-        Halloween,
-        Thanksgiving,
-        ChristmasEve,
-        ChristmasDay,
-        NewYearsEve,
-        NewYearsDay,
-
+        None                    =   0,
+        MartinLutherKingDay     =   1 << 0,
+        SuperBowlSunday         =   1 << 1,
+        ValentinesDay           =   1 << 2,
+        PresidentsDay           =   1 << 3,
+        SaintPatricksDay        =   1 << 4,
+        Easter                  =   1 << 5,
+        MothersDay              =   1 << 6,
+        FathersDay              =   1 << 7,
+        MemorialDay             =   1 << 8,
+        LaborDay                =   1 << 9,
+        Halloween               =   1 << 10,
+        Thanksgiving            =   1 << 11,
+        ChristmasEve            =   1 << 12,
+        ChristmasDay            =   1 << 13,
+        NewYearsEve             =   1 << 14,
+        NewYearsDay             =   1 << 15,
     }
 
 

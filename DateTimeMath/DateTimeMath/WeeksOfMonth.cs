@@ -9,13 +9,13 @@ namespace DateTimeMath
     [Flags]
     public enum WeeksOfMonth
     {
-        None = 0,
-        First = 1,
-        Second =2,
-        Third = 4,
-        Fourth = 8,
-        Fifth = 16,
-        Last = 32,
+        None        = 0,
+        First       = 1 << 0,
+        Second      = 1 << 1,
+        Third       = 1 << 2,
+        Fourth      = 1 << 3,
+        Fifth       = 1 << 4,
+        Last        = 1 << 5,
         Every = First | Second | Third | Fourth | Fifth
     }
 

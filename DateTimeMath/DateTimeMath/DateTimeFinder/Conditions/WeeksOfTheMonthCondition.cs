@@ -10,7 +10,7 @@ namespace DateTimeMath.Search {
         public WeeksOfMonth WeeksOfTheMonth { get; set; }
 
         public WeeksOfTheMonthCondition() {
-            this.WeeksOfTheMonth = WeeksOfMonth.Every;
+            this.WeeksOfTheMonth = WeeksOfMonth.None;
         }
 
         public WeeksOfTheMonthCondition(WeeksOfMonth WeekOfMonth) {
