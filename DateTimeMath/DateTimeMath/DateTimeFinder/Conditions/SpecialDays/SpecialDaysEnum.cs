@@ -30,12 +30,22 @@ namespace DateTimeMath.Search.SpecialDays {
 
     public static class SpecialDaysExtensions {
 
+        private static SpecialDaysEnum[] __Values;
+        private static SpecialDaysEnum[] Values {
+            get {
+                if (__Values == null) {
+                    __Values = (SpecialDaysEnum[]) Enum.GetValues(typeof(SpecialDaysEnum));
+                }
+
+                return __Values;
+            }
+        }
+
         public static List<SpecialDaysEnum> GetValues(this SpecialDaysEnum Flags) {
-            var Values = Enum.GetValues(typeof(SpecialDaysEnum));
 
             var ret = new List<SpecialDaysEnum>(Values.Length);
 
-            foreach (SpecialDaysEnum value in Values) {
+            foreach (var value in Values) {
                 if (Flags.HasFlag((SpecialDaysEnum)value)) {
                     ret.Add(value);
                 }

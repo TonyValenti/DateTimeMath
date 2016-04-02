@@ -16,7 +16,7 @@ namespace DateTimeMath
         Fourth      = 1 << 3,
         Fifth       = 1 << 4,
         Last        = 1 << 5,
-        Every = First | Second | Third | Fourth | Fifth
+        Every = First | Second | Third | Fourth | Fifth | Last
     }
 
 

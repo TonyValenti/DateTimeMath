@@ -22,7 +22,7 @@ namespace DateTimeMath.Search {
         private bool Matches(DateTime? Value) {
             var Query = from x in BlackoutDates
                         from occurance in x.Occurances(DateTime.MinValue, DateTime.MaxValue)
-                        where occurance.Intersects(Value)
+                        where occurance.During(Value)
                         select x;
 
             return Query.Any();

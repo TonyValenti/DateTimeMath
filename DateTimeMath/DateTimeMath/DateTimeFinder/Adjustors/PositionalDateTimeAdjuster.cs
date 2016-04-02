@@ -13,8 +13,8 @@ namespace DateTimeMath.Search {
 
             var Query =
                 from x in Position.Occurances(MinDate, MaxDate, StartDate)
-                let NewMin = (Location == TimeAdjustmentMode.After ? MinDate : MaxDate)
-                let NewMax = (Location == TimeAdjustmentMode.After ? MaxDate : MinDate)
+                let NewMin = (Location == TimeAdjustmentLocation.After ? MinDate : MaxDate)
+                let NewMax = (Location == TimeAdjustmentLocation.After ? MaxDate : MinDate)
                 let Adjusted = Offset.Occurances(NewMin, NewMax, x.Value).FirstOrDefault()
                 where Adjusted != null
                 select Adjusted
@@ -23,20 +23,21 @@ namespace DateTimeMath.Search {
             return Query;
         }
 
-        public TimeAdjustmentMode Location { get; set; }
+        public TimeAdjustmentLocation Location { get; set; }
         public DateTimeFormula Position { get; set; }
 
         
     }
 
-    public enum TimeAdjustmentMode {
-        After,
+    public enum TimeAdjustmentLocation {
         Before,
+        After,
+        
     }
 
     public static partial class IContainsAdjustmentsExtensions {
 
-        public static T Offset<T>(this T DateFinder, TimeAdjustmentMode Location, DateTimeFormula Position) where T : IContainsAdjustments {
+        public static T Offset<T>(this T DateFinder, TimeAdjustmentLocation Location, DateTimeFormula Position) where T : IContainsAdjustments {
             var Adjuster = new PositionalDateTimeAdjuster();
             Adjuster.Location = Location;
             Adjuster.Position = Position;
@@ -46,11 +47,11 @@ namespace DateTimeMath.Search {
             return DateFinder;
         }
 
-        public static T Offset<T>(this T DateFinder, TimeAdjustmentMode Location, Func<T, T> Initializer) where T : DateTimeFormula, IContainsAdjustments, new() {
+        public static T Offset<T>(this T DateFinder, TimeAdjustmentLocation Location, Func<T, T> Initializer) where T : DateTimeFormula, IContainsAdjustments, new() {
             return DateFinder.Offset<T, T>(Location, Initializer);
         }
 
-        public static T Offset<T, U>(this T DateFinder, TimeAdjustmentMode Location, Func<U,U> Initializer) where U : DateTimeFormula, new() where T : IContainsAdjustments {
+        public static T Offset<T, U>(this T DateFinder, TimeAdjustmentLocation Location, Func<U,U> Initializer) where U : DateTimeFormula, new() where T : IContainsAdjustments {
             var Position = Initializer(new U());
 
             return DateFinder.Offset(Location, Position);
@@ -60,15 +61,15 @@ namespace DateTimeMath.Search {
 
 
         public static T Before<T>(this T DateFinder, DateTimeFormula Position) where T : IContainsAdjustments {
-            return DateFinder.Offset(TimeAdjustmentMode.Before, Position);
+            return DateFinder.Offset(TimeAdjustmentLocation.Before, Position);
         }
 
         public static T Before<T>(this T DateFinder, Func<T,T> Initializer) where T : DateTimeFormula, IContainsAdjustments, new() {
-            return DateFinder.Offset<T, T>(TimeAdjustmentMode.Before, Initializer);
+            return DateFinder.Offset<T, T>(TimeAdjustmentLocation.Before, Initializer);
         }
 
         public static T Before<T, U>(this T DateFinder, Func<U,U> Initializer) where U : DateTimeFormula, new() where T : IContainsAdjustments {
-            return DateFinder.Offset<T, U>(TimeAdjustmentMode.Before, Initializer);
+            return DateFinder.Offset<T, U>(TimeAdjustmentLocation.Before, Initializer);
         }
 
 
@@ -77,15 +78,15 @@ namespace DateTimeMath.Search {
 
 
         public static T After<T>(this T DateFinder, DateTimeFormula Position) where T : IContainsAdjustments {
-            return DateFinder.Offset(TimeAdjustmentMode.After, Position);
+            return DateFinder.Offset(TimeAdjustmentLocation.After, Position);
         }
 
         public static T After<T>(this T DateFinder, Func<T,T> Initializer) where T : DateTimeFormula, IContainsAdjustments, new() {
-            return DateFinder.Offset<T, T>(TimeAdjustmentMode.After, Initializer);
+            return DateFinder.Offset<T, T>(TimeAdjustmentLocation.After, Initializer);
         }
 
         public static T After<T, U>(this T DateFinder, Func<U,U> Initializer) where U : DateTimeFormula, new() where T : IContainsAdjustments {
-            return DateFinder.Offset<T, U>(TimeAdjustmentMode.After, Initializer);
+            return DateFinder.Offset<T, U>(TimeAdjustmentLocation.After, Initializer);
         }
 
 

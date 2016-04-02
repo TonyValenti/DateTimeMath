@@ -10,7 +10,7 @@ namespace DateTimeMath
     {
         public TimeSpan ToTimeSpan() {
             var ret = default(TimeSpan);
-            if (!IsEmpty) {
+            if (HasDuration) {
                 ret = EndDate - StartDate;
             }
             return ret;
@@ -38,6 +38,14 @@ namespace DateTimeMath
 
         public DateTimeRange()
         {
+
+        }
+
+        public DateTimeRange(DateTime StartEndDate) : this(StartEndDate, StartEndDate) {
+            
+        }
+
+        public DateTimeRange(string StartEndDate) : this(StartEndDate, StartEndDate) {
 
         }
 
@@ -75,10 +83,21 @@ namespace DateTimeMath
 
         }
 
+        public bool HasDuration {
+            get {
+                return StartDate < EndDate;
+            }
+        }
+
+        public bool IsMarker {
+            get {
+                return StartDate == EndDate;
+            }
+        }
 
         public bool IsEmpty {
             get {
-                return StartDate >= EndDate;
+                return StartDate > EndDate;
             }
         }
 
@@ -86,20 +105,28 @@ namespace DateTimeMath
             return Intersection(this, Item);
         }
 
-        public bool Intersects(DateTimeRange Item)
+        public DateTimeRange Intersection(DateTime StartDate, DateTime EndDate) {
+            return Intersection(this, new DateTimeRange(StartDate, EndDate));
+        }
+
+        public bool During(DateTimeRange Item)
         {
             return Intersects(this, Item);
         }
 
-        public bool Intersects(DateTime DateTime)
-        {
-            return DateTime >= StartDate && DateTime < EndDate;
+        public bool During(DateTime Start, DateTime End) {
+            return Intersects(this, new DateTimeRange(Start, End));
         }
 
-        public bool Intersects(DateTime? DateTime) {
+        public bool During(DateTime DateTime)
+        {
+            return Intersects(this, new DateTimeRange(DateTime));
+        }
+
+        public bool During(DateTime? DateTime) {
             var ret = false;
             if (DateTime.HasValue) {
-                ret = Intersects(DateTime.Value);
+                ret = During(DateTime.Value);
             }
             return ret;
         }
@@ -143,6 +170,49 @@ namespace DateTimeMath
             return Intersection(X, Y) != null;
         }
 
+        public bool Before(DateTimeRange Y) {
+            return Before(this, Y);
+        }
+
+        public bool Before(DateTime Y) {
+            return Before(this, Y);
+        }
+
+        public static bool Before(DateTimeRange X, DateTimeRange Y) {
+            var ret = false;
+
+            if (!X.IsEmpty && !Y.IsEmpty) {
+                ret = X.StartDate < Y.StartDate && X.EndDate <= Y.StartDate;
+            }
+
+            return ret;
+        }
+
+        public static bool Before(DateTimeRange X, DateTime Y) {
+            return Before(X, new DateTimeRange(Y));
+        }
+
+        public bool After(DateTimeRange Y) {
+            return After(this, Y);
+        }
+
+        public bool After(DateTime Y) {
+            return After(this, Y);
+        }
+
+        public static bool After(DateTimeRange X, DateTimeRange Y) {
+            var ret = false;
+
+            if(!X.IsEmpty && !Y.IsEmpty) {
+                ret = X.StartDate >= Y.EndDate && X.EndDate > Y.EndDate;
+            }
+
+            return ret;
+        }
+
+        public static bool After(DateTimeRange X, DateTime Y) {
+            return After(X, new DateTimeRange(Y));
+        }
         
 
         public static int Compare(DateTimeRange X, DateTimeRange Y)
@@ -230,6 +300,26 @@ namespace DateTimeMath
         {
             return (Compare(x, y) >= 0);
         }
+
+
+        public static TimeSpan operator+(TimeSpan ts, DateTimeRange dr) {
+            return dr.ToTimeSpan() + ts;
+        }
+
+        public static TimeSpan operator+(DateTimeRange dr, TimeSpan ts) {
+            return dr.ToTimeSpan() + ts;
+        }
+
+
+        public static TimeSpan operator-(TimeSpan ts, DateTimeRange dr) {
+            return ts - dr.ToTimeSpan();
+        }
+
+        public static TimeSpan operator-(DateTimeRange dr, TimeSpan ts) {
+            return dr.ToTimeSpan() - ts;
+        }
+
+
 
         public override int GetHashCode()
         {

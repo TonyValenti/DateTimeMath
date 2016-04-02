@@ -93,6 +93,7 @@
     <Compile Include="DateTimeFinder\Selectors\FirstSelector.cs" />
     <Compile Include="DateTimeRanges\DateTimeRange.cs" />
     <Compile Include="DateTimeRanges\DateTimeRangeFormula.cs" />
+    <Compile Include="DateTime\DateTimeExtensions.cs" />
     <Compile Include="DaysOfWeek.cs" />
     <Compile Include="DateTime\DurationFormula.cs" />
     <Compile Include="Language\Language.cs" />

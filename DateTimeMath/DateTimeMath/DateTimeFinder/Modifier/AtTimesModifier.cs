@@ -25,7 +25,7 @@ namespace DateTimeMath.Search {
             var Query =
                 from x in Source
                 from y in Times
-                let NewValue = new DateTime(x.Value.Year, x.Value.Month, x.Value.Day, y.Hour, y.Minute, y.Second, y.Millisecond)
+                let NewValue = x.Value.WithTime(y)
                 select new DateTime?(NewValue);
 
             return Query;
