@@ -8,61 +8,61 @@ using DateTimeMath;
 
 namespace DateTimeMath.Tests {
     public static class DateRanges {
-        public static DateTimeRange Null {
+        public static DateSpan Null {
             get {
                 return null;
             }
         }
 
-        public static DateTimeRange EmptyNow {
+        public static DateSpan EmptyNow {
             get {
                 var T = DateTime.Now;
-                return new DateTimeRange(T, T);
+                return new DateSpan(T, T);
             }
         }
 
-        public static DateTimeRange EmptyReverse_1_3 {
+        public static DateSpan EmptyReverse_1_3 {
             get {
-                return new DateTimeRange(Day_1_3.EndDate, Day_1_3.StartDate);
+                return new DateSpan(Day_1_3.EndDate, Day_1_3.StartDate);
             }
         }
 
-        public static DateTimeRange EmptyReverse_3_5 {
+        public static DateSpan EmptyReverse_3_5 {
             get {
-                return new DateTimeRange(Day_3_5.EndDate, Day_3_5.StartDate);
+                return new DateSpan(Day_3_5.EndDate, Day_3_5.StartDate);
             }
         }
 
-        public static DateTimeRange Day_1_3 {
+        public static DateSpan Day_1_3 {
             get {
-                return new DateTimeRange(
+                return new DateSpan(
                 "2016-01-01 8:00am",
                 "2016-01-03 8:00am"
                 );
             }
         }
 
-        public static DateTimeRange Day_1_5 {
+        public static DateSpan Day_1_5 {
             get {
-                return new DateTimeRange(
+                return new DateSpan(
                 "2016-01-01 8:00am",
                 "2016-01-05 8:00am"
                 );
             }
         }
 
-        public static DateTimeRange Day_2_4 {
+        public static DateSpan Day_2_4 {
             get {
-                return new DateTimeRange(
+                return new DateSpan(
                 "2016-01-02 8:00am",
                 "2016-01-04 8:00am"
                 );
             }
         }
 
-        public static DateTimeRange Day_3_5 {
+        public static DateSpan Day_3_5 {
             get {
-                return new DateTimeRange(
+                return new DateSpan(
                 "2016-01-03 8:00am",
                 "2016-01-05 8:00am"
                 );

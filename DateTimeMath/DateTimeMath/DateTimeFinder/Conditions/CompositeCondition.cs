@@ -13,6 +13,20 @@ namespace DateTimeMath.Search {
 
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            
+            var Index = 0;
+
+            var PossibleNextTime = Conditions[Index].NextTime(CurrentValue);
+
+            while(PossibleNextTime != null && !Conditions.TrueForAll(x => x.IsTrue(PossibleNextTime.Value))) {
+                Index = (Index + 1) % Conditions.Count;
+
+                PossibleNextTime = Conditions[Index].NextTime(PossibleNextTime.Value);
+            }
+
+            return PossibleNextTime;
+        }
 
     }
 }

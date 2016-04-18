@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DateTimeMath
 {
-    public class DateTimeRange : IComparable<DateTimeRange>, IEqualityComparer<DateTimeRange>
+    public class DateSpan : IComparable<DateSpan>, IEqualityComparer<DateSpan>
     {
         public TimeSpan ToTimeSpan() {
             var ret = default(TimeSpan);
@@ -17,10 +17,20 @@ namespace DateTimeMath
         }
         
         // >=
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; private set; }
 
         // <
-        public DateTime EndDate { get; set; }
+        public DateTime EndDate { get; private set; }
+
+        public DateSpan WithStartDate(DateTime StartDate) {
+            var ret = new DateSpan(StartDate, this.EndDate);
+            return ret;
+        }
+
+        public DateSpan WithEndDate(DateTime EndDate) {
+            var ret = new DateSpan(this.StartDate, EndDate);
+            return ret;
+        }
 
         public override string ToString()
         {
@@ -31,54 +41,54 @@ namespace DateTimeMath
                 );
         }
 
-        public DateTimeRange Clone()
+        public DateSpan Clone()
         {
-            return new DateTimeRange(this);
+            return new DateSpan(this);
         }
 
-        public DateTimeRange()
+        public DateSpan()
         {
 
         }
 
-        public DateTimeRange(DateTime StartEndDate) : this(StartEndDate, StartEndDate) {
+        public DateSpan(DateTime StartEndDate) : this(StartEndDate, StartEndDate) {
             
         }
 
-        public DateTimeRange(string StartEndDate) : this(StartEndDate, StartEndDate) {
+        public DateSpan(string StartEndDate) : this(StartEndDate, StartEndDate) {
 
         }
 
-        public DateTimeRange(DateTime StartDate, string EndDate)
+        public DateSpan(DateTime StartDate, string EndDate)
         {
             this.StartDate = StartDate;
             this.EndDate = DateTime.Parse(EndDate);
         }
 
-        public DateTimeRange(string StartDate, DateTime EndDate)
+        public DateSpan(string StartDate, DateTime EndDate)
         {
             this.StartDate = DateTime.Parse(StartDate);
             this.EndDate = EndDate;
         }
 
-        public DateTimeRange(string StartDate, string EndDate)
+        public DateSpan(string StartDate, string EndDate)
         {
             this.StartDate = DateTime.Parse(StartDate);
             this.EndDate = DateTime.Parse(EndDate);
         }
 
-        public DateTimeRange(DateTime StartDate, DateTime EndDate)
+        public DateSpan(DateTime StartDate, DateTime EndDate)
         {
             this.StartDate = StartDate;
             this.EndDate = EndDate;
         }
 
-        public DateTimeRange(DateTime StartDate, TimeSpan Offset) {
+        public DateSpan(DateTime StartDate, TimeSpan Offset) {
             this.StartDate = StartDate;
             this.EndDate = StartDate + Offset;
         }
 
-        public DateTimeRange(DateTimeRange Source) : this(Source.StartDate, Source.EndDate)
+        public DateSpan(DateSpan Source) : this(Source.StartDate, Source.EndDate)
         {
 
         }
@@ -101,26 +111,26 @@ namespace DateTimeMath
             }
         }
 
-        public DateTimeRange Intersection(DateTimeRange Item) {
+        public DateSpan Intersection(DateSpan Item) {
             return Intersection(this, Item);
         }
 
-        public DateTimeRange Intersection(DateTime StartDate, DateTime EndDate) {
-            return Intersection(this, new DateTimeRange(StartDate, EndDate));
+        public DateSpan Intersection(DateTime StartDate, DateTime EndDate) {
+            return Intersection(this, new DateSpan(StartDate, EndDate));
         }
 
-        public bool During(DateTimeRange Item)
+        public bool During(DateSpan Item)
         {
             return Intersects(this, Item);
         }
 
         public bool During(DateTime Start, DateTime End) {
-            return Intersects(this, new DateTimeRange(Start, End));
+            return Intersects(this, new DateSpan(Start, End));
         }
 
         public bool During(DateTime DateTime)
         {
-            return Intersects(this, new DateTimeRange(DateTime));
+            return Intersects(this, new DateSpan(DateTime));
         }
 
         public bool During(DateTime? DateTime) {
@@ -146,15 +156,15 @@ namespace DateTimeMath
 
 
             */
-        public static DateTimeRange Intersection(DateTimeRange X, DateTimeRange Y) {
-            DateTimeRange ret = null;
+        public static DateSpan Intersection(DateSpan X, DateSpan Y) {
+            DateSpan ret = null;
 
             if(! X.IsEmpty && !Y.IsEmpty) {
 
                 var BiggestStart = (X.StartDate >= Y.StartDate ? X.StartDate : Y.StartDate);
                 var SmallestFinish = (X.EndDate <= Y.EndDate ? X.EndDate : Y.EndDate);
 
-                var NewItem = new DateTimeRange(BiggestStart, SmallestFinish);
+                var NewItem = new DateSpan(BiggestStart, SmallestFinish);
 
                 if (!NewItem.IsEmpty) {
                     ret = NewItem;
@@ -165,12 +175,12 @@ namespace DateTimeMath
             return ret;
         }
 
-        public static bool Intersects(DateTimeRange X, DateTimeRange Y)
+        public static bool Intersects(DateSpan X, DateSpan Y)
         {
             return Intersection(X, Y) != null;
         }
 
-        public bool Before(DateTimeRange Y) {
+        public bool Before(DateSpan Y) {
             return Before(this, Y);
         }
 
@@ -178,7 +188,7 @@ namespace DateTimeMath
             return Before(this, Y);
         }
 
-        public static bool Before(DateTimeRange X, DateTimeRange Y) {
+        public static bool Before(DateSpan X, DateSpan Y) {
             var ret = false;
 
             if (!X.IsEmpty && !Y.IsEmpty) {
@@ -188,11 +198,11 @@ namespace DateTimeMath
             return ret;
         }
 
-        public static bool Before(DateTimeRange X, DateTime Y) {
-            return Before(X, new DateTimeRange(Y));
+        public static bool Before(DateSpan X, DateTime Y) {
+            return Before(X, new DateSpan(Y));
         }
 
-        public bool After(DateTimeRange Y) {
+        public bool After(DateSpan Y) {
             return After(this, Y);
         }
 
@@ -200,7 +210,7 @@ namespace DateTimeMath
             return After(this, Y);
         }
 
-        public static bool After(DateTimeRange X, DateTimeRange Y) {
+        public static bool After(DateSpan X, DateSpan Y) {
             var ret = false;
 
             if(!X.IsEmpty && !Y.IsEmpty) {
@@ -210,12 +220,12 @@ namespace DateTimeMath
             return ret;
         }
 
-        public static bool After(DateTimeRange X, DateTime Y) {
-            return After(X, new DateTimeRange(Y));
+        public static bool After(DateSpan X, DateTime Y) {
+            return After(X, new DateSpan(Y));
         }
         
 
-        public static int Compare(DateTimeRange X, DateTimeRange Y)
+        public static int Compare(DateSpan X, DateSpan Y)
         {
             /*
             Logic:
@@ -266,56 +276,56 @@ namespace DateTimeMath
             return ret;
         }
 
-        public int CompareTo(DateTimeRange other)
+        public int CompareTo(DateSpan other)
         {
             return Compare(this, other);
         }
 
-        public static bool operator==(DateTimeRange x, DateTimeRange y)
+        public static bool operator==(DateSpan x, DateSpan y)
         {
             return (Compare(x, y) == 0);
         }
 
-        public static bool operator!=(DateTimeRange x, DateTimeRange y)
+        public static bool operator!=(DateSpan x, DateSpan y)
         {
             return !(Compare(x,y) == 0);
         }
 
-        public static bool operator>(DateTimeRange x, DateTimeRange y)
+        public static bool operator>(DateSpan x, DateSpan y)
         {
             return (Compare(x, y) > 0);
         }
 
-        public static bool operator <(DateTimeRange x, DateTimeRange y)
+        public static bool operator <(DateSpan x, DateSpan y)
         {
             return (Compare(x, y) < 0);
         }
 
-        public static bool operator <=(DateTimeRange x, DateTimeRange y)
+        public static bool operator <=(DateSpan x, DateSpan y)
         {
             return (Compare(x, y) <= 0);
         }
 
-        public static bool operator >=(DateTimeRange x, DateTimeRange y)
+        public static bool operator >=(DateSpan x, DateSpan y)
         {
             return (Compare(x, y) >= 0);
         }
 
 
-        public static TimeSpan operator+(TimeSpan ts, DateTimeRange dr) {
+        public static TimeSpan operator+(TimeSpan ts, DateSpan dr) {
             return dr.ToTimeSpan() + ts;
         }
 
-        public static TimeSpan operator+(DateTimeRange dr, TimeSpan ts) {
+        public static TimeSpan operator+(DateSpan dr, TimeSpan ts) {
             return dr.ToTimeSpan() + ts;
         }
 
 
-        public static TimeSpan operator-(TimeSpan ts, DateTimeRange dr) {
+        public static TimeSpan operator-(TimeSpan ts, DateSpan dr) {
             return ts - dr.ToTimeSpan();
         }
 
-        public static TimeSpan operator-(DateTimeRange dr, TimeSpan ts) {
+        public static TimeSpan operator-(DateSpan dr, TimeSpan ts) {
             return dr.ToTimeSpan() - ts;
         }
 
@@ -334,17 +344,17 @@ namespace DateTimeMath
 
         public override bool Equals(object obj)
         {
-            var V = obj as DateTimeRange;
+            var V = obj as DateSpan;
 
             return this == V;
         }
 
-        public bool Equals(DateTimeRange x, DateTimeRange y)
+        public bool Equals(DateSpan x, DateSpan y)
         {
             return x == y;
         }
 
-        public int GetHashCode(DateTimeRange obj)
+        public int GetHashCode(DateSpan obj)
         {
             return obj.GetHashCode();
         }

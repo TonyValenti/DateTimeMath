@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace DateTimeMath.Search.SpecialDays {
     public class SpecialDaysCondition : DateTimeCondition {
-        public SpecialDaysEnum SpecialDays { get; set; }
+        private SpecialDaysEnum __SpecialDays;
+        public SpecialDaysEnum SpecialDays {
+            get {
+                return __SpecialDays;
+            }
+            set {
+                __SpecialDays = value;
+                this.SubCondition = this.SpecialDays.SpecialDaysConditions();
+            }
+        }
+
+        private OrCondition SubCondition = new OrCondition();
+
 
         public SpecialDaysCondition() {
-
+            
         }
 
         public SpecialDaysCondition(SpecialDaysEnum SpecialDays) {
@@ -38,6 +50,10 @@ namespace DateTimeMath.Search.SpecialDays {
 
         public override bool IsTrue(DateTime Value) {
             return SpecialDays.Matches(Value);
+        }
+
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            return SubCondition.NextTime(CurrentValue);
         }
 
     }

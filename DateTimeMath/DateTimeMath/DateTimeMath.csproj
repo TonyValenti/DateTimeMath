@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="DateTimeFinder\Adjustors\IContainsAdjustments.cs" />
     <Compile Include="DateTimeFinder\Adjustors\PositionalDateTimeAdjuster.cs" />
-    <Compile Include="DateTimeFinder\Modifier\AtTimesModifier.cs" />
+    <Compile Include="DateTimeFinder\Conditions\AtTimesCondition.cs" />
     <Compile Include="DateTimeFinder\Conditions\AndCondition.cs" />
     <Compile Include="DateTimeFinder\Conditions\CompositeCondition.cs" />
     <Compile Include="DateTimeFinder\Conditions\DaysOfTheMonthCondition.cs" />
@@ -82,17 +82,9 @@
     <Compile Include="DateTimeFinder\DateTimeFinder.cs" />
     <Compile Include="DateTimeFinder\DateTimeFinderWithers.cs" />
     <Compile Include="DateTimeFinder\Conditions\SpecialDays\SpecialDaysEnum.cs" />
-    <Compile Include="DateTimeFinder\Modifier\DateTimeModifier.cs" />
-    <Compile Include="DateTimeFinder\Modifier\IContainsModifiers.cs" />
-    <Compile Include="DateTimeFinder\Selectors\IContainsSelectors.cs" />
-    <Compile Include="DateTimeFinder\Selectors\SkipSelector.cs" />
-    <Compile Include="DateTimeFinder\Selectors\AlternatingPatternSelector.cs" />
-    <Compile Include="DateTimeFinder\Selectors\LastSelector.cs" />
-    <Compile Include="DateTimeFinder\Selectors\BlackoutSelector.cs" />
-    <Compile Include="DateTimeFinder\Selectors\DateTimeSelector.cs" />
-    <Compile Include="DateTimeFinder\Selectors\FirstSelector.cs" />
-    <Compile Include="DateTimeRanges\DateTimeRange.cs" />
+    <Compile Include="DateTimeRanges\DateSpan.cs" />
     <Compile Include="DateTimeRanges\DateTimeRangeFormula.cs" />
+    <Compile Include="DateTime\DateTimeEnumerable.cs" />
     <Compile Include="DateTime\DateTimeExtensions.cs" />
     <Compile Include="DaysOfWeek.cs" />
     <Compile Include="DateTime\DurationFormula.cs" />

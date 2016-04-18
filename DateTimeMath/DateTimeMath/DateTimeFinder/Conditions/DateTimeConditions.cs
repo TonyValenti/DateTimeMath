@@ -9,6 +9,8 @@ namespace DateTimeMath.Search {
 
         public abstract bool IsTrue(DateTime Value);
 
+        public abstract DateTime? NextTime(DateTime CurrentValue);
+
         public DateTimeCondition() {
             
         }

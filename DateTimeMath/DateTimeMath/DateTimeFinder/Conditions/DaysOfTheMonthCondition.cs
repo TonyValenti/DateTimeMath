@@ -39,6 +39,28 @@ namespace DateTimeMath.Search {
             return Query.Any();
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var ret = default(DateTime?);
+            var NextTick = CurrentValue.AddTicks(1);
+
+            if (IsTrue(NextTick)) {
+                ret = NextTick;
+            } else {
+                var BaseMonths = new[] { CurrentValue.ToMonth(), CurrentValue.ToMonth().AddMonths(1) };
+                var PossibleDates = from BaseMonth in BaseMonths
+                                    let DaysInMonth = DateTime.DaysInMonth(BaseMonth.Year, BaseMonth.Month)
+                                    from Day in DaysOfTheMonth where Day <= DaysInMonth
+                                    let NewDate = new DateTime(BaseMonth.Year, BaseMonth.Month, Day)
+                                    where NewDate > CurrentValue
+                                    orderby NewDate ascending
+                                    select new DateTime?(NewDate);
+
+                ret = PossibleDates.FirstOrDefault();
+            }
+
+            return ret;
+        }
+
     }
 
     public static partial class DateTimeFinderWithers {

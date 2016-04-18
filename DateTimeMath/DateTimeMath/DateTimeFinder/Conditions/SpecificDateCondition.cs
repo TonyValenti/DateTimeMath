@@ -51,6 +51,19 @@ namespace DateTimeMath.Search {
             return Query.Any();
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+
+            var Query =
+                from x in Dates
+                where x.Date > CurrentValue
+                orderby x ascending
+                select new DateTime?(x);
+
+            var ret = Query.FirstOrDefault();
+
+            return ret;
+        }
+
     }
 
     public static partial class DateTimeFinderWithers {

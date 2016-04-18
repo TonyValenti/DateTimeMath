@@ -13,5 +13,13 @@ namespace DateTimeMath {
             return ret;
         }
 
+        public static DateTime ToMonth(this DateTime Date) {
+            return new DateTime(Date.Year, Date.Month, 1);
+        }
+
+        public static DateTime ToYear(this DateTime Date) {
+            return new DateTime(Date.Year, 1, 1);
+        }
+
     }
 }

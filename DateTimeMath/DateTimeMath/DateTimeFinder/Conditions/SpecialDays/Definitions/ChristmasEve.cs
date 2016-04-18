@@ -15,5 +15,9 @@ namespace DateTimeMath.Search.SpecialDays {
         public override bool IsTrue(DateTime Value) {
             return SubCondition.IsTrue(Value);
         }
+
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            return SubCondition.NextTime(CurrentValue);
+        }
     }
 }

@@ -11,6 +11,15 @@ namespace DateTimeMath.Search {
             return Value.Year % 2 == 1;
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var NextTick = CurrentValue.AddTicks(1);
+            var NextYear = new DateTime(NextTick.Year + 1, 1, 1);
+            
+            var ret = (IsTrue(NextTick) ? NextTick : NextYear);
+
+            return ret;
+        }
+
     }
 
     public static partial class DateTimeFinderWithers {

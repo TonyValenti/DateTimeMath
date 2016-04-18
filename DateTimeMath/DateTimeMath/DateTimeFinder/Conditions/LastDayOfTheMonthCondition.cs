@@ -11,6 +11,16 @@ namespace DateTimeMath.Search {
             return Value.AddDays(1).Month != Value.Month;
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var NextTick = CurrentValue.AddTicks(1);
+
+            var NextMonth = NextTick.ToMonth().AddMonths(2).AddDays(-1);
+
+            var ret = IsTrue(NextTick) ? NextTick : NextMonth;
+
+            return ret;
+        }
+
     }
 
     public static partial class DateTimeFinderWithers {

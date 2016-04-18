@@ -76,6 +76,18 @@ namespace DateTimeMath.Search.SpecialDays {
 
         };
 
+        public static OrCondition SpecialDaysConditions(this SpecialDaysEnum SpecialDays) {
+            var ret = new OrCondition();
+
+            foreach (var Value in SpecialDays.GetValues()) {
+                if (SpecialDaysDictionary.ContainsKey(Value)) {
+                    ret.Conditions.Add(SpecialDaysDictionary[Value]);
+                }
+            }
+
+            return ret;
+
+        }
 
         public static bool Matches(this SpecialDaysEnum SpecialDays, DateTime Date) {
             var ret = false;

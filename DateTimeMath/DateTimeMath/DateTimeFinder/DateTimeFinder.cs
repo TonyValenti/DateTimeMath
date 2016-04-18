@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace DateTimeMath.Search {
 
-    public class DateTimeFinder : DateTimeFormula, IContainsConditions, IContainsModifiers, IContainsAdjustments, IContainsSelectors {
+    public class DateTimeFinder : DateTimeFormula, IContainsConditions, IContainsAdjustments {
         public List<DateTimeAdjuster> Adjustments { get; private set; } = new List<DateTimeAdjuster>();
         public List<DateTimeCondition> Conditions { get; private set; } = new List<DateTimeCondition>();
-        public List<DateTimeModifier> Modifiers { get; private set; } = new List<DateTimeModifier>();
-        public List<DateTimeSelector> Selectors { get; private set; } = new List<DateTimeSelector>();
-
 
         /*
         Adjustor        -   Before/After
         Condition       -   First/Monday/January
-        Modifier        -   At
         Selector        -   First/Last/Skip/Pattern
         */
 
@@ -25,8 +21,6 @@ namespace DateTimeMath.Search {
             var ret = new DateTimeFinder();
             ret.Adjustments.AddRange(Adjustments);
             ret.Conditions.AddRange(Conditions);
-            ret.Modifiers.AddRange(Modifiers);
-            ret.Selectors.AddRange(Selectors);
             return ret;
         }
 
@@ -45,13 +39,6 @@ namespace DateTimeMath.Search {
 
                 ret = (from x in ret where Conditions.TrueForAll(c => c.IsTrue(x.Value)) select x);
 
-                foreach (var item in Modifiers) {
-                    ret = item.Modify(ret);
-                }
-
-                foreach (var item in Selectors) {
-                    ret = item.Select(ret);
-                }
             }
 
             return ret;

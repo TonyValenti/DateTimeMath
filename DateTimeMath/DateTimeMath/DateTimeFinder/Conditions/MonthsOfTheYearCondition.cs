@@ -21,6 +21,25 @@ namespace DateTimeMath.Search {
             return MonthsOfTheYear.Matches(Value);
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var ret = default(DateTime?);
+
+            var NextTick = CurrentValue.AddTicks(1);
+            if (IsTrue(NextTick)) {
+                ret = NextTick;
+            } else if (MonthsOfTheYear != MonthsOfYear.None) {
+                var PossibleDate = NextTick.ToMonth();
+                do {
+                    PossibleDate = PossibleDate.AddMonths(1);
+                } while (!IsTrue(PossibleDate));
+
+                ret = PossibleDate;
+            }
+
+            return ret;
+        }
+
+
         public void Add(MonthsOfYear MonthsOfTheYear) {
             this.MonthsOfTheYear |= MonthsOfTheYear;
         }

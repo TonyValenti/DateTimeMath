@@ -53,6 +53,7 @@
     <Compile Include="DateFinderTests.cs" />
     <Compile Include="DateRanges.cs" />
     <Compile Include="DateRangeTests.cs" />
+    <Compile Include="EnumerableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -31,16 +31,16 @@ namespace DateTimeMath
             this.EndDate = EndDate;
         }
 
-        public IEnumerable<DateTimeRange> Occurances(DateTime MinStartDate, DateTime MaxEndDate) {
+        public IEnumerable<DateSpan> Occurances(DateTime MinStartDate, DateTime MaxEndDate) {
             return Occurances(MinStartDate, MaxEndDate, MinStartDate, MaxEndDate, MinStartDate);
         }
 
-        public IEnumerable<DateTimeRange> Occurances(DateTime MinStartDate, DateTime MaxStartDate, DateTime MinEndDate, DateTime MaxEndDate, DateTime StartDate) {
+        public IEnumerable<DateSpan> Occurances(DateTime MinStartDate, DateTime MaxStartDate, DateTime MinEndDate, DateTime MaxEndDate, DateTime StartDate) {
             var Query =
                 from Start in this.StartDate.Occurances(MinStartDate, MaxStartDate, StartDate)
                 let End = (from End in this.EndDate.Occurances(MinEndDate, MaxEndDate, Start.Value) where End > Start select End).FirstOrDefault()
                 where Start != null && End != null
-                select new DateTimeRange(Start.Value, End.Value);
+                select new DateSpan(Start.Value, End.Value);
 
             return Query;
         }

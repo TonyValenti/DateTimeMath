@@ -30,5 +30,13 @@ namespace DateTimeMath.Search.SpecialDays {
 
             return new DateTime(year, month, day);
         }
+
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var ThisEaster = EasterSunday(CurrentValue.Year);
+            var NextEaster = EasterSunday(CurrentValue.Year + 1);
+
+            var ret = (ThisEaster > CurrentValue ? ThisEaster : NextEaster);
+            return ret;
+        }
     }
 }

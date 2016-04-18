@@ -21,6 +21,24 @@ namespace DateTimeMath.Search {
             return DaysOfTheWeek.Matches(Value);
         }
 
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var ret = default(DateTime?);
+
+            var NextTick = CurrentValue.AddTicks(1);
+            if (IsTrue(NextTick)) {
+                ret = NextTick;
+            } else if(DaysOfTheWeek != DaysOfWeek.None) {
+                var PossibleNextTime = CurrentValue.Date;
+                do {
+                    PossibleNextTime = PossibleNextTime.AddDays(1);
+                } while (!IsTrue(PossibleNextTime));
+
+                ret = PossibleNextTime;
+            }
+
+            return ret;
+        }
+
         public void Add(DaysOfWeek DaysOfTheWeek) {
             this.DaysOfTheWeek |= DaysOfTheWeek;
         }

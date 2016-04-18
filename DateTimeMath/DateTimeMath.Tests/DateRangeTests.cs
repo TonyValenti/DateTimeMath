@@ -79,8 +79,8 @@ namespace DateTimeMath.Tests {
 
             var Item1 = DateRanges.Day_3_5;
 
-            Assert.IsFalse(DateTimeRange.Intersects(Item0, Item1));
-            Assert.IsFalse(DateTimeRange.Intersects(Item1, Item0));
+            Assert.IsFalse(DateSpan.Intersects(Item0, Item1));
+            Assert.IsFalse(DateSpan.Intersects(Item1, Item0));
 
         }
 
@@ -90,8 +90,8 @@ namespace DateTimeMath.Tests {
 
             var Item1 = DateRanges.Day_2_4;
 
-            Assert.IsTrue(DateTimeRange.Intersects(Item0, Item1));
-            Assert.IsTrue(DateTimeRange.Intersects(Item1, Item0));
+            Assert.IsTrue(DateSpan.Intersects(Item0, Item1));
+            Assert.IsTrue(DateSpan.Intersects(Item1, Item0));
 
         }
 
@@ -101,8 +101,8 @@ namespace DateTimeMath.Tests {
 
             var Item1 = DateRanges.Day_2_4;
 
-            Assert.IsTrue(DateTimeRange.Intersects(Item0, Item1));
-            Assert.IsTrue(DateTimeRange.Intersects(Item1, Item0));
+            Assert.IsTrue(DateSpan.Intersects(Item0, Item1));
+            Assert.IsTrue(DateSpan.Intersects(Item1, Item0));
 
         }
 

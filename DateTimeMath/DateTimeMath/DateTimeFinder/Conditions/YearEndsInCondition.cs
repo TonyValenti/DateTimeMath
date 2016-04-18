@@ -43,6 +43,25 @@ namespace DateTimeMath.Search {
 
             return ret;
         }
+
+        public override DateTime? NextTime(DateTime CurrentValue) {
+            var ret = default(DateTime?);
+
+            var NextTick = CurrentValue.AddTicks(1);
+
+            if (IsTrue(NextTick)) {
+                ret = NextTick;
+            } else {
+                var NextYear = NextTick;
+                do {
+                    NextYear = new DateTime(NextYear.Year + 1, 1, 1);
+                } while (!IsTrue(NextYear));
+                ret = NextYear;
+            }
+
+            return ret;
+        }
+
     }
 
     public static partial class DateTimeFinderWithers {
